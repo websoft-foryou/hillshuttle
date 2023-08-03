@@ -9,6 +9,7 @@ application/logs/*
 !application/logs/.htaccess
 
 .idea
+.htaccess
 user_guide/*
 application/config/config.php
 application/config/database.php
