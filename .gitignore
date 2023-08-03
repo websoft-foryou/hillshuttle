@@ -7,8 +7,8 @@ application/cache/*
 application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
+
+.idea
 user_guide/*
-excel_file/*
-daysheet_excel/*
 application/config/config.php
 application/config/database.php
