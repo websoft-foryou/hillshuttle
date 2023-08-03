@@ -10,3 +10,5 @@ application/logs/*
 user_guide/*
 excel_file/*
 daysheet_excel/*
+application/config/config.php
+application/config/database.php
