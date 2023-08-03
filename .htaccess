@@ -1,26 +1,11 @@
-suPHP_ConfigPath /home/hillshut/public_html/php/
-## Can be commented out if causes errors
-# Options +FollowSymLinks
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?/$1 [L]
 
-## mod_rewrite in use
-RewriteEngine On
-RewriteRule .* - [E=noabort:1]
-RewriteRule .* - [E=noconntimeout:1]
-
-## If Joomla is installed in the web server root
-## RewriteBase /
-## If Joomla is installed in a sub-directory
-    RewriteBase /App/
-    #RewriteBase /
-    #RewriteRule ^([A-Za-z0-9_]+)/?$ index.php/$1 [NC,L]   
-    #RewriteRule ^([A-Za-z0-9_]+)/([A-Za-z0-9_]+)/?$ index.php/$1/$2 [NC,L]   
-    #RewriteRule ^([A-Za-z0-9_\/=&\?]+)$  index.php/$1 [NC,L]   
-    #RewriteRule ^([A-Za-z0-9_\/=&]+)$ index.php/$1 [NC,L] 
-    RewriteRule ^([^\.]+)$  index.php/$1 [NC,L]
-	#php_value max_execution_time 300     
-
-##php_value max_input_vars 100000
-##
-## End 3rd Party or OpenSEF Section
-##php_flag display_errors on
-
+    
+</IfModule>
+Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept"
+    Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"

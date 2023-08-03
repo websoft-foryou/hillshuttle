@@ -8,7 +8,7 @@ class Login extends CI_Controller {
                     // Your own constructor code
                     
                     if($this->authentication->is_logged_in()) { redirect('users'); }
-                    
+
                      $this->load->model('login_model');
 
                }
