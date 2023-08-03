@@ -1,0 +1,51 @@
+.button .bClose {
+    border-radius: 7px 7px 7px 7px;
+    box-shadow: none;
+    font: bold 131% sans-serif;
+    position: absolute;
+    right: -7px;
+    top: -7px;
+}  
+.button {
+    background-color: #2B91AF;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    position: absolute;
+    left: 475px;
+    top: -20px;
+}
+#element_to_pop_up {
+background-color: #FFFFFF;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 0 25px 5px #999999;
+    color: #111111;
+    display: none;
+    min-width: 450px;
+    padding: 25px;    
+}
+
+#mail_confirm_pop_up {
+background-color: #FFFFFF;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 0 25px 5px #999999;
+    color: #111111;
+    display: none;
+    min-width: 450px;
+    padding: 25px;    
+}
+
+#book_cancel_popup {
+background-color: #FFFFFF;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 0 25px 5px #999999;
+    color: #111111;
+    display: none;
+    min-width: 450px;
+    padding: 25px;    
+}
