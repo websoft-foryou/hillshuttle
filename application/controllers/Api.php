@@ -18,8 +18,6 @@ class Api extends Rest {
     }
 
     public function post_register_booking() {
-
-        $booking_type = $this->post('booking_type');
         $pickup_date = $this->convertDate($this->post('pickup_date'));
         $pickup_time = $this->post('pickup_time');
         $pickup_location = $this->post('pickup_location');
@@ -33,11 +31,9 @@ class Api extends Rest {
         $oversized_items = $this->post('oversized_items');
         $child_seat = $this->post('child_seat');
         $booking_comment = $this->post('booking_comment');
-        $mobile = $this->post('mobile');
+        $client_mobile = $this->post('client_mobile');
         $flight_number = $this->post('flight_number');
         $flight_time = $this->post('flight_time');
-        $payment_method = $this->post('payment_method');
-        $paid_status = $this->post('paid_status');
 
         $client_first_name = $this->post('client_first_name');
         $client_last_name = $this->post('client_last_name');
@@ -46,6 +42,35 @@ class Api extends Rest {
         $client_city = $this->post('client_city');
 
         $charge_amount = $this->post('charge_amount');
+        $payment_method = $this->post('payment_id');
+
+        if ($drop_off_location == 10415 || $drop_off_location == 10416 || $drop_off_location == 10417) $booking_type = 'AP';
+        elseif ($drop_off_location == 10443) $booking_type = 'DH';
+        elseif ($drop_off_location == 10444) $booking_type = 'CQ';
+        elseif ($drop_off_location == 10445) $booking_type = 'CS';
+        else $booking_type = 'Other';
+
+        if ($drop_off_location == 10415 || $drop_off_location == 10416) $drop_off_location = 'Dom';
+        elseif ($drop_off_location == 10417) $drop_off_location = 'Int';
+        else $drop_off_location = '';
+
+        if ($direction == 1) $direction = 'departure';      // one way
+        elseif ($direction == 2) $direction = 'arrival';    // return
+        else $direction = 'both';                           // return (new ride)
+
+        if ($payment_method == 1) {
+            $payment_method = 'cash';
+            $paid_status = '2'; // driver
+        }
+        elseif ($payment_method == 2) {
+            $payment_method = 'stripe';
+            $paid_status = '1'; // office
+        }
+        else {
+            $payment_method = 0;
+            $paid_status = '0';
+        }
+
         if ($direction == 'departure') {
             $dep_estfare = '$' . $charge_amount;
             $arr_estfare = '';
@@ -69,7 +94,7 @@ class Api extends Rest {
                 'suburb' => $client_city,
                 'state' => '',
                 'phone' => '',
-                'mobile' => $mobile,
+                'mobile' => $client_mobile,
                 'email' => $client_email,
                 'password' => md5('password'),
                 'cli_type' => 1,
@@ -102,7 +127,7 @@ class Api extends Rest {
             'dep_passengers' => $passengers,
             'dep_babyseats' => $child_seat,
             'dep_comments' => $comment,
-            'dep_mobile' => $mobile,
+            'dep_mobile' => $client_mobile,
             'dep_flight' => $flight_number,
             'dep_ourtime' => $flight_time,
             'payment_method' => $payment_method,
@@ -114,7 +139,7 @@ class Api extends Rest {
             'arr_passengers' => $direction != 'departure' ? $passengers : '',
             'arr_babyseats' => $direction != 'departure' ? $child_seat : '',
             'arr_comments' => $direction != 'departure' ? $comment : '',
-            'arr_mobile' => $direction != 'departure' ? $mobile : '',
+            'arr_mobile' => $direction != 'departure' ? $client_mobile : '',
             'arr_flight' => $direction != 'departure' ? $flight_number : '',
             'arr_ourtime' => $direction != 'departure' ? $flight_time : '',
             'paid_status' => $paid_status,
@@ -124,7 +149,6 @@ class Api extends Rest {
             'updated_by' => 'wordpress',
         );
 
-        file_put_contents('tmp.txt', json_encode($data));
         $this->db->insert('booking', $data);
         $this->response(array(
             'status' => true,
