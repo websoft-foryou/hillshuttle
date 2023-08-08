@@ -41,7 +41,7 @@ class Api extends Rest {
         $client_address = $this->post('client_address');
         $client_city = $this->post('client_city');
 
-        $charge_amount = $this->post('charge_amount');
+        $charge_amount = str_replace('$', '', $this->post('charge_amount'));
         $payment_method = $this->post('payment_id');
 
         if ($drop_off_location == 10415 || $drop_off_location == 10416 || $drop_off_location == 10417) $booking_type = 'AP';
